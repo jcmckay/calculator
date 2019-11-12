@@ -30,17 +30,17 @@ func calcUI() {
 
 func calculator(expression string) int64 {
 	formatted := strings.Split(strings.Replace(expression, " ", "", -1), "")
-	return work(formatted, 0, "")
+	return leftRightCalc(formatted, 0, "")
 }
 
-func work(exp []string, result int64, operator string) int64 {
+func leftRightCalc(exp []string, result int64, operator string) int64 {
 
 	if len(exp) == 0 {
 		return result
 	}
 
 	if isInt(exp[0]) == -1 {
-		return work(exp[1:], result, exp[0])
+		return leftRightCalc(exp[1:], result, exp[0])
 	} else {
 		// look forward to see the full number
 		var currNumLength = 1
@@ -63,7 +63,7 @@ func work(exp []string, result int64, operator string) int64 {
 			log.Fatal("This should always pass")
 		}
 
-		return work(exp[currNumLength:], result, "")
+		return leftRightCalc(exp[currNumLength:], result, "")
 	}
 
 }
