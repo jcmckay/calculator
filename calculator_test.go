@@ -2,77 +2,34 @@ package main
 
 import "testing"
 
-func TestCalculator(t *testing.T) {
+func TestFullCalc(t *testing.T) {
 
-	result0 := calculator("")
+	run("8", 8.0, t)
+	run("(1)", 1.0, t)
+	run("(((3)))", 3.0, t)
+	run("[((4))]", 4.0, t)
+	run("([(6)])", 6.0, t)
+	run("8/4", 2.0, t)
+	run("100/5", 20.0, t)
+	run("100/50", 2.0, t)
+	run("(5/2)", 2.5, t)
+	run("(100/10)", 10, t)
+	run("([(6/2)])", 3.0, t)
 
-	if result0 != 0 {
-		t.Errorf("Error: result was %d and should have been %d", result0, 0)
-	}
+	run("7*6", 42.0, t)
+	run("40/4*9", 90.0, t)
 
-	result1 := calculator("1")
+	run("4-1", 3.0, t)
+	run("4+1", 5.0, t)
 
-	if result1 != 1 {
-		t.Errorf("Error: result was %d and should have been %d", result1, 1)
-	}
+	// run("[(5+1)/(4-1)]", 2.0, t)
 
-	result2 := calculator("1+1")
+}
 
-	if result2 != 2 {
-		t.Errorf("Error: result was %d and should have been %d", result2, 2)
-	}
+func run(exp string, expect float64, t *testing.T) {
+	result := calc(exp)
 
-	result3 := calculator("1+9+6")
-
-	if result3 != 16 {
-		t.Errorf("Error: result was %d and should have been %d", result3, 16)
-	}
-
-	result4 := calculator("8-1")
-
-	if result4 != 7 {
-		t.Errorf("Error: result was %d and should have been %d", result4, 7)
-	}
-
-	result5 := calculator("9*2")
-
-	if result5 != 18 {
-		t.Errorf("Error: result was %d and should have been %d", result5, 18)
-	}
-
-	result6 := calculator("4/2")
-
-	if result6 != 2 {
-		t.Errorf("Error: result was %d and should have been %d", result6, 2)
-	}
-
-	result7 := calculator("9-3/3*2+1")
-
-	if result7 != 5 {
-		t.Errorf("Error: result was %d and should have been %d", result7, 5)
-	}
-
-	result8 := calculator("100+5")
-
-	if result8 != 105 {
-		t.Errorf("Error: result was %d and should have been %d", result8, 105)
-	}
-
-	result9 := calculator("100+51")
-
-	if result9 != 151 {
-		t.Errorf("Error: result was %d and should have been %d", result9, 151)
-	}
-
-	result10 := calculator("12+5")
-
-	if result10 != 17 {
-		t.Errorf("Error: result was %d and should have been %d", result10, 17)
-	}
-
-	result11 := calculator("12+617")
-
-	if result11 != 629 {
-		t.Errorf("Error: result was %d and should have been %d", result11, 629)
+	if result != expect {
+		t.Errorf("Error: result was %f and should have been %f", result, expect)
 	}
 }
